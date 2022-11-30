@@ -1,27 +1,21 @@
 import './css/index.scss';
-import fetchImage from './apiService.js';
+// import './inputFort';
 import refs from './get-refs.js';
+import fetchImage from './apiService.js';
+import renderCards from './renderCards';
+import imageHbs from './imageCard.hbs';
 
-const formCreate = document.createElement('form');
-formCreate.classList.add('search-form');
-const inputCreate = document.createElement('input');
-formCreate.append(inputCreate);
+refs.searchInput.addEventListener('submit', onInput);
 
-refs.container.append(formCreate);
+function onInput(e) {
+  e.preventDefault();
+  const name = e.currentTarget.elements.query.value;
 
-// <form class="search-form" id="search-form">
-//   <input
-//     type="text"
-//     name="query"
-//     autocomplete="off"
-//     placeholder="Search images..."
-//   />
-// </form>;
+  fetchImage(name)
+    .then(renderImageCards)
+    .catch(err => console.log(err));
 
-fetchImage()
-  .then(renderImageCards)
-  .catch(err => console.log(err));
-
-function renderImageCards(e) {
-  console.log(e);
+  function renderImageCards(e) {
+    refs.gallery.innerHTML = imageHbs(e);
+  }
 }

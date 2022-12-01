@@ -1,4 +1,3 @@
-import '../css/index.scss';
 import refs from './get-refs.js';
 import fetchImage from './apiService.js';
 import renderForm from './renderForm.js';
@@ -16,12 +15,14 @@ const gallery = document.querySelector('.gallery');
 function onInput(e) {
   e.preventDefault();
   const name = e.currentTarget.elements.query.value;
+  let page = 1;
 
-  fetchImage(name)
+  fetchImage(name, page)
     .then(renderImageCards)
     .catch(err => console.log(err));
 
   function renderImageCards(e) {
     gallery.innerHTML = imageHbs(e);
   }
+  page += 1;
 }

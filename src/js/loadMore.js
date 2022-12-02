@@ -1,22 +1,15 @@
-// const element = document.getElementById('.my-element-selector');
-// element.scrollIntoView({
-//   behavior: 'smooth',
-//   block: 'end',
-// });
-const loadMore = document.querySelector('.load-more-posts');
+import onLoading from './loading';
+
+const loadMore = document.querySelector('.container-more');
 
 loadMore.addEventListener('click', onClickBtnMore);
 
-function onClickBtnMore() {
-  loadMore.classList.add('loading');
-  loadMore.setAttribute('text', '|');
+export default function onClickBtnMore() {
+  onLoading();
 
-  //   console.log(this);
-  //   this.classList.add('loading');
-  //   this.text('|');
   setTimeout(function () {
     loadMore.classList.remove('loading');
-  }, 500000);
+  }, 1000);
 }
 
 // $(document).ready(function () {

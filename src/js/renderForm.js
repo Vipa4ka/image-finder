@@ -5,6 +5,7 @@ export default function renderForm() {
   form.classList.add('search-form');
 
   const input = document.createElement('input');
+  input.classList.add('input');
   input.setAttribute('type', 'text');
   input.setAttribute('name', 'query');
   input.setAttribute('autocomplete', 'off');

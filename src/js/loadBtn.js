@@ -1,18 +1,31 @@
-import refs from './get-refs';
+export default class LoadMore {
+  constructor() {}
 
-const loadMore = document.querySelector('.container-more');
-loadMore.addEventListener('click', onclickBtnMore);
-export function onLoading() {
-  const btnMore = document.createElement('button');
-  btnMore.classList.add('btn');
-  btnMore.textContent = 'load more';
-  loadMore.append(btnMore);
+  renderLoadMoreBtn() {
+    const loadMore = document.querySelector('.container-more');
+    // loadMore.addEventListener('click', onclickBtnMore);
+  }
+  onLoading() {
+    const btnMore = document.createElement('button');
+    btnMore.classList.add('btn');
+    btnMore.textContent = 'load more';
+    loadMore.append(btnMore);
+  }
 }
 
-export function OnRemoveLoadBtn() {
-  loadMore.style.display = 'none';
-}
+// const loadMore = document.querySelector('.container-more');
+// loadMore.addEventListener('click', onclickBtnMore);
+// export function onLoading() {
+//   const btnMore = document.createElement('button');
+//   btnMore.classList.add('btn');
+//   btnMore.textContent = 'load more';
+//   loadMore.append(btnMore);
+// }
 
-function onclickBtnMore() {
-  loadMore.style.display = 'none';
-}
+// export function OnRemoveLoadBtn() {
+//   loadMore.style.display = 'none';
+// }
+
+// function onclickBtnMore() {
+//   loadMore.innerHTML = '';
+// }

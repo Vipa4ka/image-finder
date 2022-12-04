@@ -1,48 +1,75 @@
-import refs from './get-refs.js';
 import NewApi from './apiService.js';
+import LoadMore from './loadBtn.js';
 import renderForm from './renderForm.js';
 import renderCards from './renderCards';
 import imageHbs from '../templete/imageCard.hbs';
-// import onClickBtnMore from './loadMore';
-import { onLoading } from './loadBtn';
+import { error } from '@pnotify/core';
+import '@pnotify/core/dist/BrightTheme.css';
+
 const NewAp = new NewApi();
+
+const LoadMoreBtn = new LoadMore({
+  className: 'container-more',
+});
 
 renderForm();
 renderCards();
 
-// onClickBtnMore;
-
 const searchInput = document.querySelector('.search-form');
-
 searchInput.addEventListener('submit', onInput);
+LoadMoreBtn.refs.loadMoreContainer.addEventListener('click', fetchImg);
 
 const gallery = document.querySelector('.gallery');
 
 function onInput(e) {
   e.preventDefault();
-  NewAp.searchQuery = e.currentTarget.elements.query.value;
+  LoadMoreBtn.onLoading();
+  NewAp.resetPage();
   clearSearch();
+  NewAp.searchQuery = e.currentTarget.elements.query.value;
   fetchImg();
-  onLoading();
-  const loadMore = document.querySelector('.btn');
-  loadMore.addEventListener('click', fetchImg);
 }
 
 function fetchImg() {
-  // onClickBtnMore;
-  onLoading();
+  LoadMoreBtn.OnRemoveLoadBtn();
+  LoadMoreBtn.onWaitLoading();
+
   NewAp.fetchImage()
-    .then(renderImageCards)
-    .catch(err => console.log(err));
-  renderImageCards();
-  onLoading();
+    .then(a => {
+      if (a.hits.length > 0) {
+        renderImageCards(a);
+        LoadMoreBtn.OnRemoveLoadBtn();
+        LoadMoreBtn.onLoading();
+        return;
+      }
+      if (a.hits.length === 0) {
+        onError('Nothing found for your request!');
+        return;
+      }
+    })
+    .catch(onError);
 }
 
 function renderImageCards(e) {
-  gallery.innerHTML = imageHbs(e);
+  gallery.insertAdjacentHTML('beforeend', imageHbs(e));
+  scroll();
+}
+function scroll() {
+  gallery.scrollIntoView({ block: 'end', behavior: 'smooth' });
 }
 
 function clearSearch() {
   gallery.innerHTML = '';
-  // NewAp.resetPage();
+}
+
+function onError(e) {
+  error({
+    text: `${e}`,
+    hide: true,
+    sticker: false,
+    delay: 2000,
+    addClass: 'errorMessage',
+  });
+  clearSearch();
+  LoadMoreBtn.OnRemoveLoadBtn();
 }

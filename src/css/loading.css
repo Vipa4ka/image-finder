@@ -1,5 +1,5 @@
 .loader {
-  position: absolute;
+  position: relative;
   top: calc(50% - 32px);
   left: calc(50% - 32px);
   width: 64px;
@@ -20,21 +20,21 @@
   left: 0%;
   top: 0%;
   animation: rotate-one 1s linear infinite;
-  border-bottom: 3px solid #efeffa;
+  border-bottom: 7px solid #0b88b8;
 }
 
 .inner.two {
   right: 0%;
   top: 0%;
   animation: rotate-two 1s linear infinite;
-  border-right: 3px solid #efeffa;
+  border-right: 7px solid #7cdbd0c0;
 }
 
 .inner.three {
   right: 0%;
   bottom: 0%;
   animation: rotate-three 1s linear infinite;
-  border-top: 3px solid #efeffa;
+  border-top: 7px solid #ffcbf2;
 }
 
 @keyframes rotate-one {

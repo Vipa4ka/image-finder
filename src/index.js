@@ -1,5 +1,6 @@
 import './css/index.css';
 import './css/loading.css';
+import './css/btnUp.css';
 import './image/bg.png';
 import './js/get-refs';
 import './js/loadBtn';

@@ -4,23 +4,18 @@ export default class NewApi {
     this.image = '';
   }
 
-  fetchImage() {
-    const BASE_URL =
-      'https://pixabay.com/api/?image_type=photo&orientation=horizontal';
-    const KEY = '21917669-1fedcfe337ac78c8906ac8c38';
-    // const page = 5;
-    return fetch(
-      `${BASE_URL}&q=${this.image}&page=${this.page}&per_page=12&key=${KEY}`,
-    ).then(res => {
-      {
-        if (res.ok) {
-          this.page += 1;
-
-          return res.json();
-        }
-      }
+  async fetchImage() {
+    try {
+      const BASE_URL =
+        'https://pixabay.com/api/?image_type=photo&orientation=horizontal';
+      const KEY = '21917669-1fedcfe337ac78c8906ac8c38';
+      const response = await fetch(
+        `${BASE_URL}&q=${this.image}&page=${this.page}&per_page=12&key=${KEY}`,
+      );
+      return await response.json();
+    } catch {
       throw new Error('Error fatching data');
-    });
+    }
   }
 
   resetPage() {

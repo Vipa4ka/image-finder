@@ -16,7 +16,9 @@ renderForm();
 renderCards();
 
 const searchInput = document.querySelector('.search-form');
+const btnUp = document.querySelector('.back-to-top-wrapper');
 searchInput.addEventListener('submit', onInput);
+btnUp.addEventListener('.click', buttonScrollUp);
 LoadMoreBtn.refs.loadMoreContainer.addEventListener('click', fetchImg);
 
 const gallery = document.querySelector('.gallery');
@@ -33,7 +35,7 @@ function onInput(e) {
 function fetchImg() {
   LoadMoreBtn.OnRemoveLoadBtn();
   LoadMoreBtn.onWaitLoading();
-
+  btnUp.hidden = false;
   NewAp.fetchImage()
     .then(a => {
       if (a.hits.length > 0) {
@@ -43,6 +45,7 @@ function fetchImg() {
         return;
       }
       if (a.hits.length === 0) {
+        btnUp.hidden = true;
         onError('Nothing found for your request!');
         return;
       }
@@ -72,4 +75,12 @@ function onError(e) {
   });
   clearSearch();
   LoadMoreBtn.OnRemoveLoadBtn();
+}
+
+function buttonScrollUp() {
+  window.scrollBy({
+    top: 100,
+    left: 0,
+    behavior: 'smooth',
+  });
 }
